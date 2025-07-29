@@ -15,7 +15,7 @@ RUN printf "product.MATLAB Base Runtime\n" >> ./installInputs.txt
 RUN printf "product.MATLAB Production Server Runtime Addon\n" >> ./installInputs.txt
 
 # Run the installer
-RUN ./install -bat true -inputFile ./installInputs.txt
+RUN ./install -bat true -inputFile ./installInputs.txt && rm -rf /opt/matlabruntime/unzippedinstaller && rm /MATLAB_Runtime_R2025a_Update_1_glnxa64.zip
 
 ENV TZ="Etc/UTC"
 
