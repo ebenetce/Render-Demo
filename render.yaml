@@ -1,19 +1,20 @@
 # This is a basic example Blueprint for a Django web service and
 # the Render Postgres database it connects to.
 services:
-  - type: web # A Python web service named django-app running on a free instance
+  - type: web
+    name: matlab
+    env: docker
+    dockerfilePath: ./service1/Dockerfile
     plan: free
-    name: django-app
-    runtime: python
-    repo: https://github.com/render-examples/django.git
-    buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker'
     envVars:
-      - key: DATABASE_URL # Sets DATABASE_URL to the connection string of the django-app-db database
-        fromDatabase:
-          name: django-app-db
-          property: connectionString
+      - key: PORT
+        value: 9910
 
-databases:
-  - name: django-app-db # A Render Postgres database named django-app-db running on a free instance
+  - type: web
+    name: streamlit
+    env: docker
+    dockerfilePath: ./service2/Dockerfile
     plan: free
+    envVars:
+      - key: PORT
+        value: 8501
