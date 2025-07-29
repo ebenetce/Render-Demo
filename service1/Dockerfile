@@ -89,7 +89,7 @@ ENV LD_LIBRARY_PATH="/opt/matlabruntime/R2025a/runtime/glnxa64:/opt/matlabruntim
 
 RUN apt-get update && apt-get upgrade -y
 
-COPY ./applicationFilesForMATLABCompiler /usr/bin/mlrtapp
+COPY service1/applicationFilesForMATLABCompiler /usr/bin/mlrtapp
 RUN chmod -R a+rX /usr/bin/mlrtapp/*
 
 RUN if ["$(getent passwd appuser | cut -d: -f1)" = ""] ; then useradd -ms /bin/bash appuser ; fi
