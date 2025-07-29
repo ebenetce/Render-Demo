@@ -67,14 +67,6 @@ RUN apt-get update && apt-get upgrade -y
 
 RUN [ -d /usr/share/X11/xkb ] || mkdir -p /usr/share/X11/xkb
 
-# Dockerfile for image: matlabruntime/r2025a/release/update1/108000000000000000
-# 
-# Sample docker build command:
-# docker build -f "Dockerfile.runtime" -t matlabruntime/r2025a/release/update1/108000000000000000 "."
-
-FROM containers.mathworks.com/matlab-runtime-utils/matlab-runtime-installer:r2025a-update-1 AS installer
-LABEL "mathworks.matlab.runtime.cleanup"="true"
-
 ENV EXTRACTEDDIR="/opt/matlabruntime/unzippedinstaller"
 
 WORKDIR $EXTRACTEDDIR
