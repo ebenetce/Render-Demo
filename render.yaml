@@ -1,7 +1,7 @@
 # This is a basic example Blueprint for a Django web service and
 # the Render Postgres database it connects to.
 services:
-  - type: private
+  - type: web
     name: matlab
     env: docker
     dockerfilePath: ./service1/Dockerfile
