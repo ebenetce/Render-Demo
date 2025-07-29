@@ -80,9 +80,6 @@ RUN printf "product.MATLAB Production Server Runtime Addon\n" >> ./installInputs
 # Run the installer
 RUN ./install -bat true -inputFile ./installInputs.txt
 
-FROM matlabruntimebase/r2025a/release/update1
-LABEL "mathworks.matlab.runtime.cleanup"="false"
-
 ENV TZ="Etc/UTC"
 
 COPY --from=installer /tmp/matlabruntime/runtime /opt/matlabruntime
