@@ -1,7 +1,7 @@
 FROM python:3.10
 
 WORKDIR /app
-COPY streamlit_app.py .
+COPY service2/streamlit_app.py .
 
 RUN pip install streamlit requests
 
