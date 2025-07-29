@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Replace 'service1' with the name defined in render.yaml
-SERVICE1_URL = "http://matlab:9910"
+SERVICE1_URL = "https://matlab-uxuj.onrender.com"
 
 st.title("Streamlit App Connecting to Service 1")
 
