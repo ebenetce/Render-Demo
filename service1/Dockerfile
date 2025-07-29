@@ -82,8 +82,6 @@ RUN ./install -bat true -inputFile ./installInputs.txt
 
 ENV TZ="Etc/UTC"
 
-COPY --from=installer /tmp/matlabruntime/runtime /opt/matlabruntime
-
 RUN unlink /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
 RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
 
