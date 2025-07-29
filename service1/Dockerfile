@@ -4,18 +4,21 @@ RUN apt-get update && apt-get upgrade -y && apt-get install wget -y
 
 ENV EXTRACTEDDIR="/opt/matlabruntime/unzippedinstaller"
 
-RUN mkdir -p $EXTRACTEDDIR && wget https://ssd.mathworks.com/supportfiles/downloads/R2025a/Release/1/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2025a_Update_1_glnxa64.zip && unzip MATLAB_Runtime_R2025a_Update_1_glnxa64.zip -d $EXTRACTEDDIR   
-
-WORKDIR $EXTRACTEDDIR
+RUN mkdir -p $EXTRACTEDDIR 
 
 # Write the installer file
-RUN touch ./installInputs.txt
-RUN printf "destinationFolder=/tmp/matlabruntime/runtime\nagreeToLicense=yes\n" > ./installInputs.txt
-RUN printf "product.MATLAB Base Runtime\n" >> ./installInputs.txt
-RUN printf "product.MATLAB Production Server Runtime Addon\n" >> ./installInputs.txt
+RUN touch $EXTRACTEDDIR/installInputs.txt
+RUN printf "destinationFolder=/opt/matlabruntime\nagreeToLicense=yes\n" > $EXTRACTEDDIR/installInputs.txt
+RUN printf "product.MATLAB Base Runtime\n" >> $EXTRACTEDDIR/installInputs.txt
+RUN printf "product.MATLAB Production Server Runtime Addon\n" >> $EXTRACTEDDIR/installInputs.txt
 
-# Run the installer
-RUN ./install -bat true -inputFile ./installInputs.txt && rm -rf /opt/matlabruntime/unzippedinstaller && rm /MATLAB_Runtime_R2025a_Update_1_glnxa64.zip
+RUN wget -q https://ssd.mathworks.com/supportfiles/downloads/R2025a/Release/1/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2025a_Update_1_glnxa64.zip && \
+    unzip -q MATLAB_Runtime_R2025a_Update_1_glnxa64.zip -d $EXTRACTEDDIR && \
+    rm MATLAB_Runtime_R2025a_Update_1_glnxa64.zip && $EXTRACTEDDIR/install -bat true -inputFile $EXTRACTEDDIR/installInputs.txt && \
+    rm -rf $EXTRACTEDDIR
+
+RUN unlink /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
+RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
 
 ENV TZ="Etc/UTC"
 
