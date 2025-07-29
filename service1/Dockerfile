@@ -19,9 +19,6 @@ RUN ./install -bat true -inputFile ./installInputs.txt
 
 ENV TZ="Etc/UTC"
 
-RUN unlink /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
-RUN ln -s /usr/lib/x86_64-linux-gnu/libstdc++.so.6 /opt/matlabruntime/R2025a/sys/os/glnxa64/libstdc++.so.6
-
 ENV LD_LIBRARY_PATH="/opt/matlabruntime/R2025a/runtime/glnxa64:/opt/matlabruntime/R2025a/bin/glnxa64:/opt/matlabruntime/R2025a/sys/os/glnxa64:/opt/matlabruntime/R2025a/sys/opengl/lib/glnxa64:/opt/matlabruntime/R2025a/extern/bin/glnxa64"
 
 RUN apt-get update && apt-get upgrade -y
